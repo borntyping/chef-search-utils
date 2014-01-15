@@ -50,8 +50,3 @@ end
 class Chef::Resource::Template
 	include SearchUtils
 end
-
-# Use search functions inside templates
-class Chef::Mixin::Template::TemplateContext
-	include SearchUtils
-end

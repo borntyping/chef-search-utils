@@ -30,7 +30,7 @@ database_hosts = search_fqdns(:recipe => 'postgres')
 webservers = search_nodes(:role => 'webserver')
 ```
 
-The functions can also be used from template resources and templates:
+The functions can also be used from template resources:
 
 ```ruby
 template "/tmp/test" do
@@ -38,10 +38,6 @@ template "/tmp/test" do
 		:database_servers => search_fqdns(:role => 'my_database_role')
 	})
 end
-```
-
-```erb
-<%= search_fqdn(:recipe => 'find-dev') %>
 ```
 
 All of the node search functions restrict searches to the current `chef_environment`. If you need to search across all environments, use `:chef_environment => *`.
