@@ -13,32 +13,26 @@ Usage
 
 Depend on this cookbook in your cookbooks `metadata.rb`:
 
-```ruby
-depends 'search-utils'
-```
+	depends 'search-utils'
 
 The `search_*` functions will now be availible in recipes:
 
-```ruby
-# A single FQDN, raising an error if no nodes or multiple nodes are found
-chef_server_host = search_fqdn(:recipe => 'chef-server')
+	# A single FQDN, raising an error if no nodes or multiple nodes are found
+	chef_server_host = search_fqdn(:recipe => 'chef-server')
 
-# A list of FQDNs matching nodes with the 'postgres' recipe
-database_hosts = search_fqdns(:recipe => 'postgres')
+	# A list of FQDNs matching nodes with the 'postgres' recipe
+	database_hosts = search_fqdns(:recipe => 'postgres')
 
-# A list of nodes with the 'webserver' role
-webservers = search_nodes(:role => 'webserver')
-```
+	# A list of nodes with the 'webserver' role
+	webservers = search_nodes(:role => 'webserver')
 
 The functions can also be used from template resources:
 
-```ruby
-template "/tmp/test" do
-	variables({
-		:database_servers => search_fqdns(:role => 'my_database_role')
-	})
-end
-```
+	template "/tmp/test" do
+		variables({
+			:database_servers => search_fqdns(:role => 'my_database_role')
+		})
+	end
 
 All of the node search functions restrict searches to the current `chef_environment`. If you need to search across all environments, use `:chef_environment => *`.
 
