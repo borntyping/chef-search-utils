@@ -1,7 +1,7 @@
-chef-search-utils
-=================
+alternate_search
+================
 
-`chef-search-utils` is a chef cookbook that provides several utility functions that make using Chef search easier. By default, searches are restricted to the current environment, and make use of `partial_search` so that searches use a minimum of resources.
+`alternate_search` is a chef cookbook that provides an alternate search syntax (and several utility functions) that make using Chef search easier. By default, searches are restricted to the current environment, and make use of `partial_search` so that searches use a minimum of resources.
 
 Requirements
 ------------
@@ -13,31 +13,14 @@ Usage
 
 Depend on this cookbook in your cookbooks `metadata.rb`:
 
-	depends 'search-utils'
+	depends 'alternate_search'
 
-The `search_*` functions will now be availible in recipes:
-
-	# A single FQDN, raising an error if no nodes or multiple nodes are found
-	chef_server_host = search_fqdn(:recipe => 'chef-server')
-
-	# A list of FQDNs matching nodes with the 'postgres' recipe
-	database_hosts = search_fqdns(:recipe => 'postgres')
-
-	# A list of nodes with the 'webserver' role
-	webservers = search_nodes(:role => 'webserver')
-
-The functions can also be used from template resources:
-
-	template "/tmp/test" do
-		variables({
-			:database_servers => search_fqdns(:role => 'my_database_role')
-		})
-	end
-
-All of the node search functions restrict searches to the current `chef_environment`. If you need to search across all environments, use `:chef_environment => *`.
+The below functions can the be used in recipes and template resources.
 
 Functions
 ---------
+
+All of the node search functions restrict searches to the current `chef_environment`. If you need to search across all environments, use `:chef_environment => *`.
 
 #### search_to_string
 
@@ -47,6 +30,10 @@ Functions
 #### search_nodes
 
 Equivalent to `partial_search`, with `:chef_environment` set to `node.chef_environment` by default.
+
+	search_nodes(:recipe => 'chef-server')
+
+Options for `partial_search` can be passed as a second parameter:
 
 	search_nodes({:recipe => 'chef-server'}, {:keys => {"fqdn" => ['fqdn']}})
 
@@ -63,6 +50,29 @@ Returns the FQDN of the single matching node, raising an error if zero or multip
 
 	search_fqdn(:role => 'graphite')
 	=> 'graphite.example.com'
+
+Examples
+--------
+
+Searching from a recipe:
+
+	# A single FQDN, raising an error if no nodes or multiple nodes are found
+	chef_server_host = search_fqdn(:recipe => 'chef-server')
+
+	# A list of FQDNs matching nodes with the 'postgres' recipe
+	database_hosts = search_fqdns(:recipe => 'postgres')
+
+	# A list of nodes with the 'webserver' role
+	webservers = search_nodes(:role => 'webserver')
+
+Searching from a template resource:
+
+	template "/tmp/test" do
+		variables({
+			:database_servers => search_fqdns(:role => 'my_database_role')
+		})
+	end
+
 
 Licence
 -------

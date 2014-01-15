@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: search-utils
-# Library:: utils
+# Cookbook Name:: alternate_search
+# Library:: alternate_search
 #
 # Copyright 2014, Sam Clements
 #
@@ -10,8 +10,8 @@ module SearchUtils
 	# raising an error if zero or multiple nodes are found
 	def search_fqdn(search)
 		nodes = search_fqdns(search)
-		raise "find(#{search}) returned no results" if nodes.empty? or nodes.nil?
-		raise "find(#{search}) returned multiple results" if nodes.length > 1
+		raise "search_fqdns(#{search}) returned no results" if nodes.empty? or nodes.nil?
+		raise "search_fqdns(#{search}) returned multiple results" if nodes.length > 1
 		nodes.first["fqdn"]
 	end
 
