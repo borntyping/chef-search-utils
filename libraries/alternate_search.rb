@@ -10,8 +10,13 @@ module SearchUtils
 	# raising an error if zero or multiple nodes are found
 	def search_fqdn(search)
 		nodes = search_fqdns(search)
-		raise "search_fqdns(#{search}) returned no results" if nodes.empty? or nodes.nil?
-		raise "search_fqdns(#{search}) returned multiple results" if nodes.length > 1
+
+		if nodes.empty? or nodes.nil?
+			raise "search_fqdns(#{search.inspect}) returned no results"
+		elsif nodes.length > 1
+			raise "search_fqdns(#{search.inspect}) returned multiple results"
+		end
+
 		nodes.first["fqdn"]
 	end
 
