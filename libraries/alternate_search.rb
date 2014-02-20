@@ -4,25 +4,25 @@
 #
 # Copyright 2014, Sam Clements
 #
-
 module SearchUtils
 	# Returns a single node FQDN matching a Hash search,
 	# raising an error if zero or multiple nodes are found
 	def search_fqdn(search)
-		nodes = search_fqdns(search)
+		fqdns = search_fqdns(search)
 
-		if nodes.empty? or nodes.nil?
+		if fqdns.empty? || fqdns.nil?
 			raise "search_fqdns(#{search.inspect}) returned no results"
-		elsif nodes.length > 1
+		elsif fqdns.length > 1
 			raise "search_fqdns(#{search.inspect}) returned multiple results"
 		end
 
-		nodes.first["fqdn"]
+		fqdns.first
 	end
 
-	# Returns a list of node FQDNs matching a Hash search
+	# Returns a sorted list of node FQDNs matching a Hash search
 	def search_fqdns(search)
-		search_nodes(search, {:keys => {"fqdn" => ['fqdn']}})
+		nodes = search_nodes(search, keys: { 'fqdn' => ['fqdn'] })
+		nodes.map { |n| n['fqdn'] }.sort!
 	end
 
 	# Searches for nodes using partial_search
@@ -31,8 +31,8 @@ module SearchUtils
 	#
 	# @param search [Hash] Passed to search_to_string
 	# @param options [Hash] Options to pass to partial_search
-	def search_nodes(search, options={}, &block)
-		unless search.has_key? :chef_environment
+	def search_nodes(search, options = {}, &block)
+		unless search.key? :chef_environment
 			search[:chef_environment] = node.chef_environment
 		end
 		partial_search(:node, search_to_string(search), options, &block)
@@ -42,7 +42,7 @@ module SearchUtils
 	#
 	# @param search [Hash] An {attribute => value} hash to coerce
 	def search_to_string(search)
-		search.map {|k,v| "#{k}:#{v}"}.join(' AND ')
+		search.map { |k, v| "#{k}:#{v}" }.join(' AND ')
 	end
 end
 
