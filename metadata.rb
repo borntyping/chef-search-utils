@@ -1,8 +1,8 @@
 name             'alternate_search'
-maintainer       'Sam Clements'
-maintainer_email 'sam.clements@borntyping.co.uk'
+maintainer       'DataSift'
+maintainer_email 'opensource@datasift.com'
 license          'mit'
 description      'An alternate search syntax for Chef'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '2.1.2'
+version          '2.2.0'
 depends          'partial_search'

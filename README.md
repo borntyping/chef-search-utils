@@ -77,7 +77,7 @@ Searching from a template resource:
 Licence
 -------
 
-Copyright (c) 2014 Sam Clements
+Copyright (c) 2014 DataSift <opensource@datasift.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -100,4 +100,5 @@ THE SOFTWARE.
 Authors
 -------
 
-* [Sam Clements](https://github.com/borntyping)
+Written by [Sam Clements](https://github.com/borntyping) at
+[DataSift](https://datasift.com/).
