@@ -102,3 +102,6 @@ Authors
 
 Written by [Sam Clements](https://github.com/borntyping) at
 [DataSift](https://datasift.com/).
+
+![Sam Clements](https://gravatar.com/avatar/8dd5661684a7385fe723b7e7588e91ee?s=40)
+![DataSift](https://gravatar.com/avatar/a3a6d949b43b6b880ffb3e277a65f49d?s=40)
