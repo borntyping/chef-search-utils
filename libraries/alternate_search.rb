@@ -5,14 +5,20 @@
 # Copyright 2014, Sam Clements
 #
 module SearchUtils
-	# Returns a single node FQDN matching a Hash search,
-	# raising an error if zero or multiple nodes are found
+	# Returns the FQDN of a matching node, raising an error if multiple or no
+	# nodes match
 	def search_fqdn(search)
+		fqdn = search_fqdn_optional(search)
+		raise "search_fqdn(#{search.inspect}) returned no results" if fqdn.nil?
+		fqdn
+	end
+
+	# Returns a single FQDN of a matching node, raising an error if multiple
+	# nodes match or returning nil if no nodes match
+	def search_fqdn_optional(search)
 		fqdns = search_fqdns(search)
 
-		if fqdns.empty? || fqdns.nil?
-			raise "search_fqdns(#{search.inspect}) returned no results"
-		elsif fqdns.length > 1
+		if fqdns.length > 1
 			raise "search_fqdns(#{search.inspect}) returned multiple results"
 		end
 
